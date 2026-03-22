@@ -11,8 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 public final class LookupOverlayRenderer {
-	public static final int BOX_WIDTH = 170;
-	public static final int BOX_HEIGHT = 34;
+	public static final int DEFAULT_BOX_WIDTH = 170;
+	public static final int DEFAULT_BOX_HEIGHT = 34;
+	public static final int MIN_BOX_WIDTH = 120;
+	public static final int MIN_BOX_HEIGHT = 28;
+	public static final int MAX_BOX_WIDTH = 420;
+	public static final int MAX_BOX_HEIGHT = 140;
 	public static final int BOX_SPACING = 4;
 
 	private static final String HEART_SYMBOL = "\u2764";
@@ -46,25 +50,27 @@ public final class LookupOverlayRenderer {
 
 		MinecraftClient client = MinecraftClient.getInstance();
 		LookupConfig config = LookupConfigManager.getConfig();
-		int originX = clamp(config.boxX, 0, Math.max(0, context.getScaledWindowWidth() - BOX_WIDTH));
-		int originY = clamp(config.boxY, 0, Math.max(0, context.getScaledWindowHeight() - BOX_HEIGHT));
+		int boxWidth = clamp(config.boxWidth, MIN_BOX_WIDTH, MAX_BOX_WIDTH);
+		int boxHeight = clamp(config.boxHeight, MIN_BOX_HEIGHT, MAX_BOX_HEIGHT);
+		int originX = clamp(config.boxX, 0, Math.max(0, context.getScaledWindowWidth() - boxWidth));
+		int originY = clamp(config.boxY, 0, Math.max(0, context.getScaledWindowHeight() - boxHeight));
 
 		for (int i = 0; i < TRACKED_PLAYERS.size(); i++) {
-			int boxY = originY + i * (BOX_HEIGHT + BOX_SPACING);
+			int boxY = originY + i * (boxHeight + BOX_SPACING);
 			if (boxY > context.getScaledWindowHeight()) {
 				break;
 			}
 
 			String playerName = TRACKED_PLAYERS.get(i);
-			renderBox(context, client, config, originX, boxY, playerName);
+			renderBox(context, client, config, originX, boxY, boxWidth, boxHeight, playerName);
 		}
 	}
 
-	private static void renderBox(DrawContext context, MinecraftClient client, LookupConfig config, int x, int y, String playerName) {
-		int right = x + BOX_WIDTH;
-		int bottom = y + BOX_HEIGHT;
+	private static void renderBox(DrawContext context, MinecraftClient client, LookupConfig config, int x, int y, int boxWidth, int boxHeight, String playerName) {
+		int right = x + boxWidth;
+		int bottom = y + boxHeight;
 		context.fill(x, y, right, bottom, 0xB0000000);
-		context.drawStrokedRectangle(x, y, BOX_WIDTH, BOX_HEIGHT, 0x90FFFFFF);
+		context.drawStrokedRectangle(x, y, boxWidth, boxHeight, 0x90FFFFFF);
 		context.fill(x, y, right, y + 12, 0x40000000);
 
 		context.drawTextWithShadow(client.textRenderer, playerName, x + 6, y + 2, 0xFFFFFFFF);

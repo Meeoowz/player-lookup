@@ -52,6 +52,13 @@ public class LookupConfigScreen extends Screen {
 			}).dimensions(left, y, 200, 20).build()
 		);
 
+		y += 24;
+		addDrawableChild(
+			ButtonWidget.builder(Text.literal("Reset box position/size"), button -> workingConfig.resetBoxLayout())
+				.dimensions(left, y, 200, 20)
+				.build()
+		);
+
 		y += 32;
 		addDrawableChild(
 			ButtonWidget.builder(Text.literal("Close"), button -> close())
@@ -66,7 +73,13 @@ public class LookupConfigScreen extends Screen {
 		renderInGameBackground(context);
 		context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 20, 0xFFFFFF);
 		context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("Choose fields used by /s <player>"), this.width / 2, 42, 0xA0A0A0);
-		context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("Box position: " + workingConfig.boxX + ", " + workingConfig.boxY), this.width / 2, 56, 0xA0A0A0);
+		context.drawCenteredTextWithShadow(
+			this.textRenderer,
+			Text.literal("Box: " + workingConfig.boxX + ", " + workingConfig.boxY + "  Size: " + workingConfig.boxWidth + "x" + workingConfig.boxHeight),
+			this.width / 2,
+			56,
+			0xA0A0A0
+		);
 		super.render(context, mouseX, mouseY, delta);
 	}
 

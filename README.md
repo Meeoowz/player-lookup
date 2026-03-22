@@ -5,7 +5,7 @@ A simple mod that tracks the health of select players in competitive PVP servers
 ## Features (all configurable)
 - Track health of players in the tablist
 - Track ping of players in the tablist
-- Edit location of the tracking HUD
+- Edit location and size of the tracking HUD
 - Clears tracked players on join
 
 ## Keybinds (in keybinds screen)
@@ -13,5 +13,5 @@ A simple mod that tracks the health of select players in competitive PVP servers
 
 ## Commands
 - `/lookup` - Opens the config screen
-- `/lookup pos` - Opens the position editor screen
+- `/lookup pos` - Opens the position/scale editor screen
 - `/lookup clear` - Clears tracked players
