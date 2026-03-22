@@ -1,0 +1,28 @@
+{
+	"schemaVersion": 1,
+	"id": "player-lookup",
+	"version": "${version}",
+	"name": "Player Lookup",
+	"description": "Client-side player lookup mod for tablist health/ping sharing.",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/player-lookup/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"tablookup.java.PlayerLookup"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
