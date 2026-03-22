@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
@@ -67,16 +66,10 @@ public class PlayerLookup implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while (openConfigKeybind.wasPressed()) {
-				if (client.currentScreen == null && isShiftHeld(client)) {
+				if (client.currentScreen == null) {
 					LookupCommands.openConfigScreen(client);
 				}
 			}
 		});
-	}
-
-	private static boolean isShiftHeld(MinecraftClient client) {
-		var window = client.getWindow();
-		return InputUtil.isKeyPressed(window, GLFW.GLFW_KEY_LEFT_SHIFT)
-			|| InputUtil.isKeyPressed(window, GLFW.GLFW_KEY_RIGHT_SHIFT);
 	}
 }
